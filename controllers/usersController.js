@@ -18,14 +18,17 @@ const getUsers = async (req, res) => {
 const saveUser = async (req, res) => {
   try {
     const user = new User(req.body);
-    const saveUser = await user.save();
+    const savedUser = await user.save();
 
     req.status(201).json({
       message: "Save user success",
-      data: saveUser
+      data: savedUser
     })
   } catch (error) {
-    res.json(error)
+    res.status(500).json({
+      message: "Failed to save user",
+      data: error
+    })
   }
 };
 
